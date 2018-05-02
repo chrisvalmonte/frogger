@@ -21,9 +21,65 @@ Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-// Now write your own player class
-// This class requires an update(), render() and
-// a handleInput() method.
+
+
+/*
+ * Description: Constructor function for player objects.
+ */
+var Player = function() {
+    // Load the player's image
+    this.sprite = 'images/char-boy.png';
+
+    // Set the player's initial location (bottom center)
+    this.posX = 300;
+    this.posY = 100;
+};
+
+/*
+ * Description: Handles a collision with an enemy.
+ */
+Player.prototype.update = function() {
+    // Reset the player's location after a collision with an enemy
+    this.posX = 300;
+    this.posY = 100;
+};
+
+/*
+ * Description: Draws the player on the screen.
+ */
+Player.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
+
+/*
+ * Description: This function handles the player's arrow key function events.
+ *
+ * @param key: The arrow key pressed.
+ */
+Player.prototype.handleInput = function(key) {
+    switch(key) {
+        case 'left':
+            if(this.posX === 100) // left boundary
+              return;
+            this.posX -= 100;
+            break;
+        case 'up':
+            if(this.posY === 500) // top boundary
+              return;
+            this.posY += 100;
+            break;
+        case 'right':
+            if(this.posX === 500) // right boundary
+              return;
+            this.posX += 100;
+            break;
+        case 'down':
+            if(this.posY === 100) // bottom boundary
+              return;
+            this.posY -= 100;
+            break;
+    }
+};
 
 
 // Now instantiate your objects.
