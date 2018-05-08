@@ -1,11 +1,16 @@
-// Enemies our player must avoid
-var Enemy = function() {
-    // Variables applied to each of our instances go here,
-    // we've provided one for you to get started
-
-    // The image/sprite for our enemies, this uses
-    // a helper we've provided to easily load images
+/*
+ * Description: Constructor function for enemy objects that the player must avoid.
+ *
+ * @param x: The generated X coordinate that the enemy will spawn on.
+ * @param y: The generated Y coordinate that the enemy will spawn on.
+ */
+var Enemy = function(x, y) {
+    // Load the enemy's image
     this.sprite = 'images/enemy-bug.png';
+
+    // Set the enemy's generated location
+    this.posX = x;
+    this.posY = y;
 };
 
 // Update the enemy's position, required method for game
@@ -14,6 +19,7 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
+    return Math.ceil(Math.random() * 5) * dt;
 };
 
 // Draw the enemy on the screen, required method for game
