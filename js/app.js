@@ -37,17 +37,14 @@ var Player = function() {
     this.sprite = 'images/char-boy.png';
 
     // Set the player's initial location (bottom center)
-    this.posX = 300;
-    this.posY = 100;
+    this.x = 200;
+    this.y = 400;
 };
 
 /*
  * Description: Handles a collision with an enemy.
  */
 Player.prototype.update = function() {
-    // Reset the player's location after a collision with an enemy
-    this.posX = 300;
-    this.posY = 100;
 };
 
 /*
@@ -65,32 +62,39 @@ Player.prototype.render = function() {
 Player.prototype.handleInput = function(key) {
     switch(key) {
         case 'left':
-            if(this.posX === 100) // left boundary
-              return;
-            this.posX -= 100;
-            break;
-        case 'up':
-            if(this.posY === 500) // top boundary
-              return;
-            this.posY += 100;
+            if(this.x === 0) // left boundary
+                return;
+            this.x -= 100;
             break;
         case 'right':
-            if(this.posX === 500) // right boundary
-              return;
-            this.posX += 100;
+            if(this.x === 400) // right boundary
+                return;
+            this.x += 100;
+            break;
+        case 'up':
+            if(this.y === 60) { // top boundary
+                // Reset the player's position after he/she reaches the water
+                this.x = 200;
+                this.y = 400;
+                return;
+            }
+            this.y -= 85;
             break;
         case 'down':
-            if(this.posY === 100) // bottom boundary
-              return;
-            this.posY -= 100;
+            if(this.y == 400) // bottom boundary
+                return;
+            this.y += 85;
             break;
     }
 };
 
 
-// Now instantiate your objects.
-// Place all enemy objects in an array called allEnemies
-// Place the player object in a variable called player
+
+// Instantiate a new player
+var player = new Player();
+
+// Instantiate all enemies
+var allEnemies = [];
 
 
 
