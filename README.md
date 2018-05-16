@@ -1,6 +1,30 @@
-frontend-nanodegree-arcade-game
-===============================
+# Classic Arcade Game: Frogger
 
-Students should use this [rubric](https://review.udacity.com/#!/projects/2696458597/rubric) for self-checking their submission. Make sure the functions you write are **object-oriented** - either class functions (like Player and Enemy) or class prototype functions such as Enemy.prototype.checkCollisions, and that the keyword 'this' is used appropriately within your class and class prototype functions to refer to the object the function is called upon. Also be sure that the **readme.md** file is updated with your instructions on both how to 1. Run and 2. Play your arcade game.
+## Table of Contents
 
-For detailed instructions on how to get started, check out this [guide](https://docs.google.com/document/d/1v01aScPjSWCCWQLIpFqvg3-vXLH2e8_SZQKC8jNO0Dc/pub?embedded=true).
+* [About](#about)
+* [How To Play](#how-to-play)
+* [Starting The Game](#starting-the-game)
+* [Dependencies](#dependencies)
+* [Contributing](#contributing)
+
+## About
+
+This project demonstrates my object-oriented programming with JavaScript. It is a browser-based recreation of the classic arcade game, frogger.
+
+## How To Play
+
+In this game you, the Player, must reach the water, without colliding into any one of the Enemies (bugs). The player can move left, right, up and down using the arrow keys. The enemies move in varying speeds on the concrete squares of the game board. Once the player collides with an enemy, the the player moves back to the start square. Once the player reaches the water, the game is won.
+
+## Starting The Game
+
+To start the game, open `index.html` in your browser.
+
+## Dependencies
+
+* `js/engine.js`, the game engine pulled from the original project.
+* `js/resources.js`, the image loading utility pulled from the original project.
+
+## Contributing
+
+I will not accept any pull requests.
