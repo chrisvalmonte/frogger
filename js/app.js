@@ -11,6 +11,9 @@ var Enemy = function() {
     // Valid Y coordinates for the enemy
     this.validYCoords = [60, 145, 230];
 
+    // Set the enemy's randomly generated speed modifier
+    this.speed = 40 * (Math.floor(Math.random() * 10) + 3)
+
     // Set the enemy's randomly generated Y coordinate
     this.y = this.validYCoords[Math.floor(Math.random() * 3)];
 };
@@ -22,12 +25,15 @@ var Enemy = function() {
  * @param dt: The time delta between ticks.
  */
 Enemy.prototype.update = function(dt) {
-    this.x += 100 * dt;
+    this.x += dt * this.speed;
 
-    // Reset the enemy's location after it crosses the screen.
-    if(this.x > 500) {
+    if(this.x > 500) { // After the enemy crosses the screen,
+        // Reset the enemy's location
         this.x = -100;
         this.y = this.validYCoords[Math.floor(Math.random() * 3)];
+
+        // Randomly generate a new speed modifier
+        this.speed = 40 * (Math.floor(Math.random() * 10) + 3);
     }
 
     // Reset the player's location after a collision with an enemy.
@@ -42,10 +48,13 @@ Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
+/*
+ * Description: Check a collision with the player.
+ */
 Enemy.prototype.collidedWithPlayer = function() {
     return this.x >= player.x - 25 &&
-      this.x <= player.x &&
-      this.y === player.y;
+        this.x <= player.x &&
+        this.y === player.y;
 }
 
 
@@ -113,9 +122,9 @@ Player.prototype.handleInput = function(key) {
 // Instantiate a new player
 var player = new Player();
 
-// Instantiate all enemies
+// Instantiate 6 total enemies
 var allEnemies = [];
-var numEnemies = 1;
+var numEnemies = 6;
 for (var i = 0; i < numEnemies; i++) {
     var enemy = new Enemy();
     allEnemies.push(enemy);
