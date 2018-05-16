@@ -1,31 +1,52 @@
 /*
  * Description: Constructor function for enemy objects that the player must avoid.
- *
- * @param x: The generated X coordinate that the enemy will spawn on.
- * @param y: The generated Y coordinate that the enemy will spawn on.
  */
-var Enemy = function(x, y) {
+var Enemy = function() {
     // Load the enemy's image
     this.sprite = 'images/enemy-bug.png';
 
-    // Set the enemy's generated location
-    this.posX = x;
-    this.posY = y;
+    // Spawn the enemy off screen
+    this.x = -100;
+
+    // Valid Y coordinates for the enemy
+    this.validYCoords = [60, 145, 230];
+
+    // Set the enemy's randomly generated Y coordinate
+    this.y = this.validYCoords[Math.floor(Math.random() * 3)];
 };
 
-// Update the enemy's position, required method for game
-// Parameter: dt, a time delta between ticks
+/*
+ * Description: Update the enemy's position across the screen and handle a
+ * collision with a player.
+ *
+ * @param dt: The time delta between ticks.
+ */
 Enemy.prototype.update = function(dt) {
-    // You should multiply any movement by the dt parameter
-    // which will ensure the game runs at the same speed for
-    // all computers.
-    return Math.ceil(Math.random() * 5) * dt;
+    this.x += 100 * dt;
+
+    // Reset the enemy's location after it crosses the screen.
+    if(this.x > 500) {
+        this.x = -100;
+        this.y = this.validYCoords[Math.floor(Math.random() * 3)];
+    }
+
+    // Reset the player's location after a collision with an enemy.
+    if(this.collidedWithPlayer())
+        player.setInitialCoords();
 };
 
-// Draw the enemy on the screen, required method for game
+/*
+ * Description: Draw the enemy on the screen.
+ */
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
+
+Enemy.prototype.collidedWithPlayer = function() {
+    return this.x >= player.x - 25 &&
+      this.x <= player.x &&
+      this.y === player.y;
+}
 
 
 
@@ -36,15 +57,15 @@ var Player = function() {
     // Load the player's image
     this.sprite = 'images/char-boy.png';
 
-    // Set the player's initial location (bottom center)
-    this.x = 200;
-    this.y = 400;
+    this.setInitialCoords();
 };
 
 /*
- * Description: Handles a collision with an enemy.
+ * Description: Sets the player's initial location (bottom center).
  */
-Player.prototype.update = function() {
+Player.prototype.setInitialCoords = function() {
+    this.x = 200;
+    this.y = 400;
 };
 
 /*
@@ -74,8 +95,7 @@ Player.prototype.handleInput = function(key) {
         case 'up':
             if(this.y === 60) { // top boundary
                 // Reset the player's position after he/she reaches the water
-                this.x = 200;
-                this.y = 400;
+                this.setInitialCoords();
                 return;
             }
             this.y -= 85;
@@ -95,6 +115,11 @@ var player = new Player();
 
 // Instantiate all enemies
 var allEnemies = [];
+var numEnemies = 1;
+for (var i = 0; i < numEnemies; i++) {
+    var enemy = new Enemy();
+    allEnemies.push(enemy);
+}
 
 
 
